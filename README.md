@@ -1,12 +1,16 @@
 # FIAP - Faculdade de Informática e Administração Paulista
 
 <p align="center">
-<a href= "https://www.fiap.com.br/"><img src="assets/logo-fiap.png" alt="FIAP - Faculdade de Informática e Admnistração Paulista" border="0" width=40% height=40%></a>
+<a href="https://www.fiap.com.br/"><img src="assets/logo-fiap.png" alt="FIAP - Faculdade de Informática e Administração Paulista" border="0" width=40% height=40%></a>
 </p>
 
 <br>
 
 # ☄️ AstroRisk — Sistema de Monitoramento e Classificação de Asteroides
+
+## 🌐 Global Solution 2026.1 — Economia Espacial
+
+---
 
 ## 👨‍🎓 Integrantes
 
@@ -19,11 +23,9 @@
 ## 👩‍🏫 Professores
 
 ### Tutor(a)
-
-- Sabrina Otoni — Turma B
+- Sabrina Otoni
 
 ### Coordenador(a)
-
 - André Godoi Chiovato
 
 ---
@@ -32,7 +34,7 @@
 
 O **AstroRisk** é uma plataforma de monitoramento e classificação de risco de asteroides que utiliza dados reais e atualizados da **NASA NeoWs API** (Near Earth Object Web Service). O sistema coleta, analisa e classifica automaticamente asteroides próximos da Terra como **PERIGOSOS** ou **SEGUROS**, exibindo os resultados em um dashboard interativo e acionando alertas físicos via **ESP32**.
 
-O projeto foi desenvolvido na **Global Solution 2026.1 — FIAP**, com tema **Economia Espacial**.
+O projeto foi desenvolvido na **Global Solution 2026.1 — FIAP**, com tema **Economia Espacial**, respondendo à pergunta: *"Como a tecnologia espacial pode ser utilizada para melhorar a vida das pessoas e criar novas oportunidades?"*
 
 > 📽️ **Vídeo de Apresentação:** [a ser inserido após gravação]
 
@@ -40,15 +42,25 @@ O projeto foi desenvolvido na **Global Solution 2026.1 — FIAP**, com tema **Ec
 
 ## 📁 Estrutura de Pastas
 
-Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
-
-- **.github**: arquivos de configuração específicos do GitHub.
-- **assets**: imagens, logotipos e prints do dashboard utilizados na documentação.
-- **dashboard**: interface web interativa desenvolvida com Streamlit (`app.py`).
-- **document**: documentos do projeto solicitados pela atividade, incluindo o PDF de entrega.
-- **esp32**: firmware do ESP32 (`astrorisk_esp32.ino`) e script de comunicação serial Python.
-- **src**: código-fonte principal — coleta de dados NASA (`coletor_nasa.py`), análise exploratória (`analise_eda.py`) e modelo de Machine Learning (`modelo_ml.py`).
-- **README.md**: arquivo que serve como guia e explicação geral sobre o projeto.
+```bash
+📂 AstroRisk
+│
+├── 📂 assets               # Imagens, logo e prints do dashboard
+├── 📂 dashboard
+│   └── app.py              # Interface web interativa (Streamlit)
+├── 📂 document             # PDF de entrega e documentação
+├── 📂 esp32
+│   ├── astrorisk_esp32.ino # Firmware do ESP32 (Arduino)
+│   └── comunicacao_serial.py # Integração Python ↔ ESP32
+├── 📂 src
+│   ├── coletor_nasa.py     # Coleta de dados via NASA NeoWs API
+│   ├── analise_eda.py      # Análise exploratória + visualizações
+│   └── modelo_ml.py        # Treinamento e predição (Random Forest)
+├── .env.example            # Template de variáveis de ambiente
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
 
 ---
 
@@ -57,11 +69,11 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 ### Pré-requisitos
 
 - Python 3.10+
-- Conta gratuita em [api.nasa.gov](https://api.nasa.gov) para obter sua chave de API
+- Chave gratuita da NASA em [api.nasa.gov](https://api.nasa.gov)
 
 ### Instalação
 
-**Fase 1 — Configuração:**
+**Fase 1 — Clonar e instalar dependências:**
 
 ```bash
 git clone https://github.com/SEU_USUARIO/AstroRisk
@@ -73,7 +85,7 @@ pip install -r requirements.txt
 
 ```bash
 cp .env.example .env
-# Edite o .env e insira sua chave NASA_API_KEY
+# Edite o .env e insira sua NASA_API_KEY
 ```
 
 **Fase 3 — Coletar dados da NASA:**
@@ -94,7 +106,7 @@ python src/analise_eda.py
 python src/modelo_ml.py
 ```
 
-**Fase 6 — Dashboard:**
+**Fase 6 — Iniciar o dashboard:**
 
 ```bash
 streamlit run dashboard/app.py
@@ -111,13 +123,13 @@ streamlit run dashboard/app.py
 
 ## 🔴 Problema
 
-Todos os dias, a NASA monitora centenas de **Objetos Próximos da Terra (NEOs)**. Dentre eles, alguns são classificados como potencialmente perigosos — aqueles com tamanho e trajetória capazes de representar risco de impacto. A classificação manual desses objetos é um processo lento e dependente de especialistas.
+Todos os dias, a NASA monitora centenas de **Objetos Próximos da Terra (NEOs)**. Dentre eles, alguns são classificados como potencialmente perigosos — aqueles com tamanho e trajetória capazes de representar risco de impacto. A classificação manual desses objetos é um processo lento, técnico e pouco acessível ao público geral.
 
-**Consequências da falta de automação:**
+**Consequências:**
 
 - Demora na triagem de novos objetos detectados
-- Dificuldade de acesso público a informações de risco em tempo real
-- Ausência de sistemas integrados que combinem análise de dados, ML e alertas físicos
+- Ausência de sistemas acessíveis que combinem dados reais, ML e alertas
+- Baixa visibilidade pública sobre riscos astronômicos reais
 
 ---
 
@@ -128,36 +140,21 @@ O AstroRisk automatiza a triagem de asteroides com Machine Learning, entregando:
 | Saída | Descrição |
 |-------|-----------|
 | 📊 Classificação de risco | PERIGOSO ou SEGURO |
-| 🔢 Probabilidade | Score entre 0 e 1 |
-| 📈 Visualizações | Gráficos de velocidade, distância e diâmetro |
-| 🚨 Alerta físico | LED e buzzer via ESP32 |
-| 🌐 Dashboard interativo | Interface Streamlit com filtros e predição |
-
-**Exemplo de saída do sistema:**
-
-```
-Asteroide  : (2026 XK42)
-Diâmetro   : 480 m
-Velocidade : 112.000 km/h
-Distância  : 720.000 km da Terra
-
-Classificação : 🔴 PERIGOSO
-Probabilidade : 87.3%
-→ ESP32: LED VERMELHO piscando + 3 bipes de alerta
-```
+| 🔢 Probabilidade | Score de 0 a 1 calculado pelo modelo |
+| 📈 Visualizações | Gráficos de velocidade, distância, diâmetro e correlações |
+| 🚨 Alerta físico | LED vermelho piscando + buzzer via ESP32 |
+| 🌐 Dashboard interativo | Interface Streamlit com filtros e predição em tempo real |
 
 ---
 
 ## 🤖 Modelo de Machine Learning
 
-**Objetivo:** classificar automaticamente um asteroide como perigoso ou seguro com base em dados orbitais e físicos.
-
 | Componente | Definição |
 |------------|-----------|
 | Variável alvo | `potencialmente_perigoso` — 0 (seguro) ou 1 (perigoso) |
-| Modelo principal | **Random Forest** |
+| Modelo | **Random Forest** (scikit-learn) |
 | Features | diâmetro médio, velocidade relativa, distância da Terra, distância lunar, magnitude absoluta |
-| Métricas de avaliação | AUC-ROC, F1-score, Recall, Matriz de Confusão |
+| Métricas | AUC-ROC, F1-score, Recall, Matriz de Confusão |
 | Validação | Cross-validation com 5 folds |
 
 ---
@@ -168,59 +165,18 @@ Probabilidade : 87.3%
 NASA NeoWs API
       │
       ▼
-src/coletor_nasa.py     ← Coleta e tratamento de dados (Pandas)
+src/coletor_nasa.py     ← Coleta e tratamento de dados
       │
       ▼
-src/analise_eda.py      ← Análise exploratória + gráficos (Matplotlib/Seaborn)
+src/analise_eda.py      ← Análise exploratória + gráficos
       │
       ▼
-src/modelo_ml.py        ← Treinamento e avaliação (Random Forest / sklearn)
+src/modelo_ml.py        ← Treinamento e avaliação (Random Forest)
       │
       ├──► dashboard/app.py       ← Dashboard Streamlit interativo
       │
       └──► esp32/                 ← Alerta físico via ESP32
 ```
-
-| Componente | Tecnologia |
-|------------|-----------|
-| Coleta de dados | Python, Requests, NASA NeoWs API |
-| Análise de dados | Pandas, NumPy |
-| Visualização | Matplotlib, Seaborn |
-| Machine Learning | Scikit-learn (Random Forest) |
-| Dashboard | Streamlit |
-| IoT / Hardware | ESP32, C++ (Arduino Framework) |
-| Comunicação serial | PySerial |
-| Segurança | python-dotenv |
-
----
-
-## 🔌 Esquema de Conexão ESP32
-
-```
-ESP32           Componente
-GPIO 25    →    LED Vermelho (+) → 220Ω → GND
-GPIO 26    →    LED Verde (+) → 220Ω → GND
-GPIO 27    →    Buzzer (+) → GND
-3.3V       →    VCC dos componentes
-GND        →    GND comum
-```
-
----
-
-## 📊 Fonte dos Dados
-
-| Fonte | Dado fornecido |
-|-------|----------------|
-| [NASA NeoWs API](https://api.nasa.gov) | Asteroides próximos da Terra (diâmetro, velocidade, distância, risco) |
-
-- Dados atualizados diariamente
-- Chave gratuita disponível em [api.nasa.gov](https://api.nasa.gov)
-
----
-
-## 🗃 Histórico de Lançamentos
-
-- **1.0.0** — Global Solution 2026.1: MVP completo com coleta NASA, EDA, ML, dashboard Streamlit e integração ESP32
 
 ---
 
@@ -237,6 +193,4 @@ GND        →    GND comum
 
 ## 📋 Licença
 
-<a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a>
-
-[MODELO GIT FIAP](https://github.com/agodoi/template) por [FIAP](https://fiap.com.br) está licenciado sob [Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1).
+<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/agodoi/template">MODELO GIT FIAP</a> por <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://fiap.com.br">FIAP</a> está licenciado sobre <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>
