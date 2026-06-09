@@ -180,7 +180,9 @@ def predizer(pipeline: Pipeline, dados: dict) -> dict:
 
 
 if __name__ == "__main__":
-    from src.coletor_nasa import carregar_dados
+    import sys as _sys
+    _sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    from coletor_nasa import carregar_dados
 
     df = carregar_dados()
     pipeline, X_test, y_test = treinar_modelo(df)

@@ -36,31 +36,33 @@ O **AstroRisk** é uma plataforma de monitoramento e classificação de risco de
 
 O projeto foi desenvolvido na **Global Solution 2026.1 — FIAP**, com tema **Economia Espacial**, respondendo à pergunta: *"Como a tecnologia espacial pode ser utilizada para melhorar a vida das pessoas e criar novas oportunidades?"*
 
-> 📽️ **Vídeo de Apresentação:** [a ser inserido após gravação]
+> 📽️ **Vídeo de Apresentação:** https://youtu.be/CMh5HENGuig
 
 ---
 
 ## 📁 Estrutura de Pastas
 
-```bash
+```
 📂 AstroRisk
 │
-├── 📂 assets               # Imagens, logo e prints do dashboard
-├── 📂 dashboard
-│   └── app.py              # Interface web interativa (Streamlit)
-├── 📂 document             # PDF de entrega e documentação
-├── 📂 esp32
-│   ├── astrorisk_esp32.ino # Firmware do ESP32 (Arduino)
-│   └── comunicacao_serial.py # Integração Python ↔ ESP32
-├── 📂 src
-│   ├── coletor_nasa.py     # Coleta de dados via NASA NeoWs API
-│   ├── analise_eda.py      # Análise exploratória + visualizações
-│   └── modelo_ml.py        # Treinamento e predição (Random Forest)
-├── .env.example            # Template de variáveis de ambiente
-├── .gitignore
+├── app.py                  # Interface web interativa (Streamlit)
+├── coletor_nasa.py         # Coleta de dados via NASA NeoWs API
+├── analise_eda.py          # Análise exploratória + visualizações
+├── modelo_ml.py            # Treinamento e predição (Random Forest)
+├── comunicacao_serial.py   # Integração Python ↔ ESP32
+├── astrorisk_esp32.ino     # Firmware do ESP32 (Arduino)
+├── logo-fiap.png
+├── roteiro_video.txt
 ├── requirements.txt
+├── .env                    # Variáveis de ambiente (não versionar)
+├── .env.example            # Template da chave NASA
 └── README.md
 ```
+
+> Os arquivos de dados e modelos gerados em tempo de execução ficam em:
+> - `data/asteroides.csv` — dataset coletado da NASA
+> - `data/graficos/` — gráficos gerados pela análise exploratória
+> - `data/modelo_astrorisk.pkl` — modelo treinado salvo pelo joblib
 
 ---
 
@@ -76,48 +78,48 @@ O projeto foi desenvolvido na **Global Solution 2026.1 — FIAP**, com tema **Ec
 **Fase 1 — Clonar e instalar dependências:**
 
 ```bash
-git clone https://github.com/SEU_USUARIO/AstroRisk
+git clone https://github.com/aflauris/AstroRisk
 cd AstroRisk
-pip install -r requirements.txt
+python3 -m pip install -r requiremens.txt
 ```
 
 **Fase 2 — Configurar variáveis de ambiente:**
 
 ```bash
-cp .env.example .env
-# Edite o .env e insira sua NASA_API_KEY
-```
+# Crie o arquivo .env na raiz do projeto com o conteúdo abaixo:
+echo "NASA_API_KEY=sua_chave_aqui" > .env
+``ewYAwpnCn6YDaV38u8eNwZyKb0GMscp5wialh3pc`
 
 **Fase 3 — Coletar dados da NASA:**
 
 ```bash
-python src/coletor_nasa.py
+python3 coletor_nasa.py
 ```
 
 **Fase 4 — Análise exploratória:**
 
 ```bash
-python src/analise_eda.py
+python3 analise_eda.py
 ```
 
 **Fase 5 — Treinar o modelo de ML:**
 
 ```bash
-python src/modelo_ml.py
+python3 modelo_ml.py
 ```
 
 **Fase 6 — Iniciar o dashboard:**
 
 ```bash
-streamlit run dashboard/app.py
+python3 -m streamlit run app.py
 ```
 
 **Fase 7 — ESP32 (opcional):**
 
-1. Abrir `esp32/astrorisk_esp32.ino` na Arduino IDE
+1. Abrir `astrorisk_esp32.ino` na Arduino IDE
 2. Selecionar placa: **ESP32 Dev Module**
 3. Fazer upload do firmware
-4. Executar `python esp32/comunicacao_serial.py`
+4. Executar `python3 comunicacao_serial.py`
 
 ---
 
@@ -165,17 +167,18 @@ O AstroRisk automatiza a triagem de asteroides com Machine Learning, entregando:
 NASA NeoWs API
       │
       ▼
-src/coletor_nasa.py     ← Coleta e tratamento de dados
+coletor_nasa.py     ← Coleta e tratamento de dados
       │
       ▼
-src/analise_eda.py      ← Análise exploratória + gráficos
+analise_eda.py      ← Análise exploratória + gráficos
       │
       ▼
-src/modelo_ml.py        ← Treinamento e avaliação (Random Forest)
+modelo_ml.py        ← Treinamento e avaliação (Random Forest)
       │
-      ├──► dashboard/app.py       ← Dashboard Streamlit interativo
+      ├──► app.py              ← Dashboard Streamlit interativo
       │
-      └──► esp32/                 ← Alerta físico via ESP32
+      └──► astrorisk_esp32.ino ← Alerta físico via ESP32
+           comunicacao_serial.py
 ```
 
 ---

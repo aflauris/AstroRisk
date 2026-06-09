@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "author": "AstroRisk — FIAP Global Solution 2026.1",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 120,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 96,
+      "left": -20,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_red",
+      "top": 90,
+      "left": -80,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 176,
+      "left": -20,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": 170,
+      "left": -80,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 280,
+      "left": -80,
+      "attrs": { "volume": "0.1" }
+    }
+  ],
+  "connections": [
+    ["esp:TX0", "$serialMonitor:RX", "", []],
+    ["esp:RX0", "$serialMonitor:TX", "", []],
+
+    ["esp:D25",    "r1:2",         "red",   ["h-20"]],
+    ["r1:1",       "led_red:A",    "red",   ["h-20"]],
+    ["led_red:C",  "esp:GND.2",    "black", ["v30", "h200"]],
+
+    ["esp:D26",      "r2:2",          "green", ["h-20"]],
+    ["r2:1",         "led_green:A",   "green", ["h-20"]],
+    ["led_green:C",  "esp:GND.2",     "black", ["v50", "h200"]],
+
+    ["esp:D27",  "bz1:1",         "orange", ["h-120"]],
+    ["bz1:2",    "esp:GND.2",     "black",  ["v10", "h220"]]
+  ]
+}
