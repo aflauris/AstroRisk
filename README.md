@@ -76,7 +76,7 @@ O projeto foi desenvolvido na **Global Solution 2026.1 — FIAP**, com tema **Ec
 **Fase 1 — Clonar e instalar dependências:**
 
 ```bash
-git clone https://github.com/SEU_USUARIO/AstroRisk
+git clone https://github.com/aflauris/AstroRisk
 cd AstroRisk
 pip install -r requirements.txt
 ```
