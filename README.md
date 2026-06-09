@@ -36,8 +36,10 @@ O **AstroRisk** é uma plataforma de monitoramento e classificação de risco de
 
 O projeto foi desenvolvido na **Global Solution 2026.1 — FIAP**, com tema **Economia Espacial**, respondendo à pergunta: *"Como a tecnologia espacial pode ser utilizada para melhorar a vida das pessoas e criar novas oportunidades?"*
 
-> 📽️ **Vídeo de Apresentação:** 
-
+<<<<<<< HEAD
+=======
+> 📽️ **Vídeo de Apresentação:** https://www.youtube.com/watch?v=CMh5HENGuig
+>>>>>>> f0e8bcca531ef6e71074108c5c39e76d66e037a3
 ---
 
 ## 📁 Estrutura de Pastas
